@@ -66,11 +66,12 @@ input[type=date]::-webkit-calendar-picker-indicator{filter:invert(.5);cursor:poi
 .ac-row{display:flex;align-items:center;gap:9px;padding:9px 13px;cursor:pointer;transition:background .1s;font-size:.81rem}
 .ac-row:hover,.ac-row.act{background:rgba(99,102,241,.12)}
 .ac-row:not(:last-child){border-bottom:1px solid rgba(255,255,255,.04)}
-.ac-f{font-size:1.05rem;flex-shrink:0}
+.ac-m{font-size:1.05rem;flex-shrink:0}
 .ac-cd{background:linear-gradient(135deg,var(--a1),var(--a2));color:#fff;font-family:'Space Mono',monospace;font-weight:700;font-size:.68rem;border-radius:5px;padding:2px 6px;flex-shrink:0}
 .ac-ci{font-weight:600;color:var(--text)}
 .ac-nm{color:var(--muted);font-size:.72rem}
-.ac-co{margin-left:auto;color:var(--muted);font-size:.67rem;flex-shrink:0;opacity:.65}
+.ac-co{margin-
+left:auto;color:var(--muted);font-size:.67rem;flex-shrink:0;opacity:.65}
 .ac-hl{background:rgba(99,102,241,.32);border-radius:2px;color:#fff}
 .ac-mt{padding:13px;color:var(--muted);font-size:.81rem;text-align:center}
 
@@ -152,159 +153,6 @@ input[type=date]::-webkit-calendar-picker-indicator{filter:invert(.5);cursor:poi
 
 /* Map */
 .map-wrap{border-radius:14px;overflow:hidden;border:1px solid var(--border);height:380px}
-<html lang="zh-TW">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Journey Planner</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#06060f;--surface:rgba(255,255,255,.035);--surface2:rgba(255,255,255,.06);
-  --border:rgba(255,255,255,.08);--border-lit:rgba(255,255,255,.18);
-  --a1:#6366f1;--a2:#a855f7;--a3:#06b6d4;--a4:#10b981;
-  --text:#e2e8f0;--muted:#64748b;--dim:#94a3b8;
-}
-html{scroll-behavior:smooth}
-body{font-family:'Space Grotesk',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
-.bg-orbs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-.orb{position:absolute;border-radius:50%;filter:blur(110px);opacity:.4;animation:drift 20s ease-in-out infinite}
-.orb-1{width:550px;height:550px;background:var(--a1);top:-180px;left:-80px;animation-delay:0s}
-.orb-2{width:480px;height:480px;background:var(--a2);bottom:-140px;right:-80px;animation-delay:-7s}
-.orb-3{width:380px;height:380px;background:var(--a3);top:45%;left:55%;transform:translate(-50%,-50%);animation-delay:-13s}
-@keyframes drift{0%,100%{transform:translate(0,0)}33%{transform:translate(36px,-28px)}66%{transform:translate(-18px,36px)}}
-
-.page{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:44px 20px 90px}
-
-/* Hero */
-.hero{text-align:center;margin-bottom:48px}
-.eyebrow{display:inline-flex;align-items:center;gap:7px;font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--a3);border:1px solid rgba(6,182,212,.3);border-radius:999px;padding:5px 14px;margin-bottom:18px;background:rgba(6,182,212,.06)}
-.eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--a3);animation:blink 2s ease-in-out infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
-h1.title{font-size:clamp(2.2rem,6vw,3.6rem);font-weight:700;line-height:1.1;letter-spacing:-.02em;
-  background:linear-gradient(135deg,#e2e8f0,var(--a1) 40%,var(--a2) 70%,var(--a3));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px}
-.hero p{color:var(--muted);font-size:.95rem;line-height:1.6}
-
-/* Cards */
-.card{background:var(--surface);border:1px solid var(--border);border-radius:20px;backdrop-filter:blur(24px);transition:border-color .25s,box-shadow .25s}
-.card:hover{border-color:var(--border-lit);box-shadow:0 0 40px rgba(99,102,241,.07)}
-.card-p{padding:26px 26px 22px}
-.seclabel{font-family:'Space Mono',monospace;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.seclabel::after{content:'';flex:1;height:1px;background:var(--border)}
-
-/* Form controls */
-select,input[type=date]{width:100%;background:rgba(0,0,0,.35);border:1px solid var(--border);border-radius:11px;padding:10px 13px;font-family:'Space Grotesk',sans-serif;font-size:.875rem;color:var(--text);outline:none;transition:border-color .2s,box-shadow .2s;appearance:none}
-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748b' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;padding-right:34px;cursor:pointer}
-select:focus,input[type=date]:focus{border-color:var(--a1);background:rgba(99,102,241,.07);box-shadow:0 0 0 3px rgba(99,102,241,.14)}
-select option{background:#1e1e2e;color:var(--text)}
-input[type=date]::-webkit-calendar-picker-indicator{filter:invert(.5);cursor:pointer}
-.fl{font-size:.71rem;color:var(--muted);margin-bottom:5px;font-weight:500;letter-spacing:.03em}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-@media(max-width:520px){.g2{grid-template-columns:1fr}.g3{grid-template-columns:1fr 1fr}}
-
-/* Airport autocomplete */
-.ac-wrap{position:relative}
-.ap-in{width:100%;background:rgba(0,0,0,.35);border:1px solid var(--border);border-radius:11px;padding:10px 13px 10px 36px;font-family:'Space Grotesk',sans-serif;font-size:.875rem;color:var(--text);outline:none;transition:border-color .2s,box-shadow .2s;caret-color:var(--a1)}
-.ap-in::placeholder{color:var(--muted)}
-.ap-in:focus{border-color:var(--a1);background:rgba(99,102,241,.07);box-shadow:0 0 0 3px rgba(99,102,241,.14)}
-.ac-ico{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:.9rem;pointer-events:none;z-index:1;opacity:.5}
-.ac-dd{display:none;position:absolute;z-index:9999;top:calc(100% + 5px);left:0;right:0;background:rgba(10,10,22,.97);border:1px solid rgba(99,102,241,.22);border-radius:13px;box-shadow:0 20px 60px rgba(0,0,0,.6);backdrop-filter:blur(20px);max-height:270px;overflow-y:auto}
-.ac-dd.open{display:block;animation:dropIn .14s ease}
-@keyframes dropIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
-.ac-dd::-webkit-scrollbar{width:3px}.ac-dd::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:2px}
-.ac-row{display:flex;align-items:center;gap:9px;padding:9px 13px;cursor:pointer;transition:background .1s;font-size:.81rem}
-.ac-row:hover,.ac-row.act{background:rgba(99,102,241,.12)}
-.ac-row:not(:last-child){border-bottom:1px solid rgba(255,255,255,.04)}
-.ac-f{font-size:1.05rem;flex-shrink:0}
-.ac-cd{background:linear-gradient(135deg,var(--a1),var(--a2));color:#fff;font-family:'Space Mono',monospace;font-weight:700;font-size:.68rem;border-radius:5px;padding:2px 6px;flex-shrink:0}
-.ac-ci{font-weight:600;color:var(--text)}
-.ac-nm{color:var(--muted);font-size:.72rem}
-.ac-co{margin-left:auto;color:var(--muted);font-size:.67rem;flex-shrink:0;opacity:.65}
-.ac-hl{background:rgba(99,102,241,.32);border-radius:2px;color:#fff}
-.ac-mt{padding:13px;color:var(--muted);font-size:.81rem;text-align:center}
-
-/* Leg cards */
-.legs-stack{display:flex;flex-direction:column;gap:14px;margin-bottom:14px}
-.leg-card{background:rgba(0,0,0,.2);border:1px solid var(--border);border-radius:15px;padding:20px 22px;transition:border-color .2s}
-.leg-card:hover{border-color:rgba(99,102,241,.28)}
-.leg-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.leg-b{display:flex;align-items:center;gap:7px;font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--a1)}
-.leg-n{width:21px;height:21px;border-radius:5px;background:linear-gradient(135deg,var(--a1),var(--a2));display:flex;align-items:center;justify-content:center;font-size:.63rem;font-weight:700;color:#fff;flex-shrink:0}
-.rm-b{font-size:.7rem;color:var(--muted);background:none;border:1px solid var(--border);border-radius:7px;padding:3px 9px;cursor:pointer;transition:all .2s;font-family:inherit}
-.rm-b:hover{border-color:rgba(239,68,68,.5);color:#f87171;background:rgba(239,68,68,.07)}
-.add-leg{width:100%;background:none;border:1px dashed rgba(99,102,241,.3);border-radius:14px;padding:12px;font-family:'Space Grotesk',sans-serif;font-size:.84rem;color:var(--a1);cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:7px}
-.add-leg:hover{background:rgba(99,102,241,.07);border-color:rgba(99,102,241,.55)}
-
-/* Search button */
-.btn-search{width:100%;padding:15px 24px;border:none;border-radius:14px;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--a1),var(--a2) 55%,var(--a3));transition:all .3s;margin-top:18px}
-.btn-search:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(99,102,241,.45)}
-.btn-search:active{transform:translateY(0)}
-.btn-search:disabled{opacity:.5;cursor:not-allowed;transform:none}
-
-/* Tabs */
-.tab-bar{display:flex;gap:4px;padding:6px;background:rgba(0,0,0,.3);border-radius:14px;margin-bottom:20px}
-.tab{flex:1;padding:9px 12px;border:none;border-radius:10px;background:none;color:var(--muted);font-family:'Space Grotesk',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px}
-.tab.on{background:rgba(99,102,241,.18);color:var(--text);border:1px solid rgba(99,102,241,.3)}
-.tab:hover:not(.on){background:rgba(255,255,255,.04);color:var(--dim)}
-.tc{display:none}.tc.vis{display:block;animation:fadeIn .2s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
-
-/* States */
-.spinner{display:flex;flex-direction:column;align-items:center;padding:48px;gap:14px}
-.spin{width:36px;height:36px;border:3px solid rgba(99,102,241,.2);border-top-color:var(--a1);border-radius:50%;animation:spin .7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.spin-t{color:var(--muted);font-size:.82rem;font-family:'Space Mono',monospace;letter-spacing:.06em}
-.sbox{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:44px 24px;text-align:center;gap:10px}
-.s-ic{font-size:2.2rem;opacity:.4}
-.s-ti{font-size:.92rem;font-weight:600;color:var(--dim)}
-.s-su{font-size:.78rem;color:var(--muted);line-height:1.5;max-width:320px}
-
-/* Deploy notice */
-.deploy-notice{background:rgba(6,182,212,.07);border:1px solid rgba(6,182,212,.2);border-radius:14px;padding:20px 22px;margin-bottom:0}
-.dn-title{font-size:.9rem;font-weight:700;color:var(--a3);margin-bottom:8px}
-.dn-sub{font-size:.8rem;color:var(--dim);line-height:1.65}
-.dn-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.dn-link{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border:1px solid rgba(99,102,241,.3);border-radius:9px;color:var(--a1);font-size:.78rem;font-weight:600;text-decoration:none;transition:all .2s}
-.dn-link:hover{background:rgba(99,102,241,.1);border-color:var(--a1)}
-
-/* Flight cards */
-.rc{background:rgba(0,0,0,.25);border:1px solid var(--border);border-radius:13px;padding:16px 18px;margin-bottom:11px;transition:border-color .2s,transform .15s}
-.rc:hover{border-color:rgba(99,102,241,.28);transform:translateX(2px)}
-.fm{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.fr{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
-.ib{font-family:'Space Mono',monospace;font-size:1.2rem;font-weight:700;color:var(--text)}
-.fl-line{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:60px}
-.fl-dur{font-size:.68rem;color:var(--muted);font-family:'Space Mono',monospace}
-.fl-div{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(99,102,241,.4),transparent);position:relative}
-.fl-div::after{content:'â';position:absolute;right:-2px;top:-8px;font-size:.75rem;opacity:.5}
-.fl-stp{font-size:.64rem;color:var(--muted)}
-.fp{text-align:right;flex-shrink:0}
-.p-big{font-size:1.2rem;font-weight:700;background:linear-gradient(135deg,var(--a1),var(--a3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.p-sub{font-size:.67rem;color:var(--muted)}
-.fmeta{display:flex;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap}
-.al-tag{background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.2);border-radius:6px;padding:2px 8px;font-size:.68rem;color:var(--dim)}
-.t-span{font-size:.72rem;color:var(--muted);font-family:'Space Mono',monospace}
-.bk-lnp{margin-left:auto;background:none;border:1px solid rgba(99,102,241,.3);border-radius:7px;padding:4px 12px;font-size:.72rem;color:var(--a1);cursor:pointer;font-family:'Space Grotesk',sans-serif;transition:all .2s;text-decoration:none;display:inline-block}
-.bk-lnk:hover{background:rgba(99,102,241,.12);border-color:var(--a1)}
-.airline-logo{width:20px;height:20px;border-radius:4px;object-fit:contain;background:#fff;padding:1px;flex-shrink:0}
-
-/* Hotel cards */
-.hc{background:rgba(0,0,0,.25);border:1px solid var(--border);border-radius:13px;padding:16px 18px;margin-bottom:11px;transition:border-color .2s,transform .15s}
-.hc:hover{border-color:rgba(168,85,247,.28);transform:translateX(2px)}
-.hc-name{font-size:.95rem;font-weight:600;color:var(--text);margin-bottom:3px}
-.hc-class{font-size:.72rem;color:var(--muted)}
-.hc-stars{color:#fbbf24;font-size:.8rem;letter-spacing:.05em;margin-top:2px}
-.hc-foot{display:flex;align-items:center;gap:12px;margin-top:10px;flex-wrap:wrap}
-.hc-price{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,var(--a2),var(--a3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hc-per{font-size:.67rem;color:var(--muted)}
-.hc-rating{font-size:.75rem;color:var(--a4);display:flex;align-items:center;gap:4px}
-
-/* Map */
-.map-wrap{border-radius:14px;overflow:hidden;border:1px solid var(--border);height:380px}
 .map-wrap iframe{width:100%;height:100%;border:none;display:block}
 
 /* Misc */
@@ -323,127 +171,127 @@ textarea:focus{border-color:var(--a1)}textarea::placeholder{color:var(--muted)}
   <header class="hero">
     <div class="eyebrow">Journey Planner</div>
     <h1 class="title">Plan Once.<br>See Everything.</h1>
-    <p>èªç­ãé£¯åºãå°å â æå°çµæå¨é¨é¡¯ç¤ºå¨åä¸é é¢</p>
+    <p>航班、飯店、地圖 — 搜尋結果全部顯示在同一頁面</p>
   </header>
 
   <!-- Settings -->
   <div class="card"><div class="card-p">
-    <div class="seclabel">æå®¢è¨­å®</div>
+    <div class="seclabel">旅客設定</div>
     <div class="g3">
-      <div><div class="fl">æäººäººæ¸</div>
+      <div><div class="fl">成人人數</div>
         <select id="adults"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div>
-      <div><div class="fl">è¡ç¨é¡å</div>
+      <div><div class="fl">行程類型</div>
         <select id="tripType" onchange="updateTripType()">
-          <option value="roundtrip">â ä¾å</option>
-          <option value="oneway">â å®ç¨</option>
-          <option value="multi">â å¤åå¸</option>
+          <option value="roundtrip">✈ 來回</option>
+          <option value="oneway">→ 單程</option>
+          <option value="multi">⊕ 多城市</option>
         </select></div>
-      <div><div class="fl">å¹£å¥</div>
+      <div><div class="fl">幣別</div>
         <select id="currency">
-          <option value="TWD">TWD å°å¹£</option><option value="USD">USD ç¾å</option>
-          <option value="JPY">JPY æ¥å</option><option value="EUR">EUR æ­å</option>
-          <option value="HKD">HKD æ¸¯å¹£</option><option value="KRW">KRW éå</option>
+          <option value="TWD">TWD 台幣</option><option value="USD">USD 美元</option>
+          <option value="JPY">JPY 日圓</option><option value="EUR">EUR 歐元</option>
+          <option value="HKD">HKD 港幣</option><option value="KRW">KRW 韓圜</option>
         </select></div>
     </div>
   </div></div>
 
   <div class="legs-stack mt5" id="legsStack"></div>
   <div id="addLegWrap" class="hidden mt4">
-    <button class="add-leg" onclick="addLeg()"><span style="font-size:1.1rem">ï¼</span> æ°å¢ä¸ä¸æ®µè¡ç¨</button>
+    <button class="add-leg" onclick="addLeg()"><span style="font-size:1.1rem">＋</span> 新增下一段行程</button>
   </div>
 
   <div class="card mt5"><div class="card-p">
-    <div class="seclabel">åå¿é</div>
-    <textarea id="notes" rows="3" placeholder="æ¯é»ãé¤å»³ãæ³¨æäºé â¦"></textarea>
+    <div class="seclabel">備忘錄</div>
+    <textarea id="notes" rows="3" placeholder="景點、餐廳、注意事項…"></textarea>
   </div></div>
 
-  <button class="btn-search" id="searchBtn" onclick="runSearch()">ð &nbsp;æå°èªç­ ï¼ é£¯åº ï¼ å°å</button>
+  <button class="btn-search" id="searchBtn" onclick="runSearch()">🔍 &nbsp;搜尋航班 ＋ 飯店 ＋ 地圖</button>
 
   <!-- Results -->
   <div class="card mt5" id="resultsSection" style="display:none"><div class="card-p">
     <div class="tab-bar">
-      <button class="tab on"  onclick="switchTab('flights',this)">â èªç­</button>
-      <button class="tab"     onclick="switchTab('hotels',this)">ð¨ é£¯åº</button>
-      <button class="tab"     onclick="switchTab('map',this)">ðº å°å</button>
+      <button class="tab on"  onclick="switchTab('flights',this)">✈ 航班</button>
+      <button class="tab"     onclick="switchTab('hotels',this)">🏨 飯店</button>
+      <button class="tab"     onclick="switchTab('map',this)">🗺 地圖</button>
     </div>
     <div class="tc vis" id="tc-flights"></div>
     <div class="tc"     id="tc-hotels"></div>
     <div class="tc"     id="tc-map"></div>
   </div></div>
 
-  <div class="footer"><span>â</span>&nbsp; API éé°å­æ¼ Vercel ä¼ºæå¨ï¼ä¸æ´é²å¨åç«¯ &nbsp;<span>â</span></div>
+  <div class="footer"><span>◈</span>&nbsp; API 金鑰存於 Vercel 伺服器，不暴露在前端 &nbsp;<span>◈</span></div>
 </div>
 
 <script>
-// ââ Airports ââââââââââââââââââââââââââ
+// ── Airports ──────────────────────────
 const AP=[
-  {code:'TPE',city:'å°å',en:'Taipei',name:'æ¡ååéæ©å ´',flag:'ð¹ð¼',c:'å°ç£'},
-  {code:'TSA',city:'å°å',en:'Taipei',name:'æ¾å±±æ©å ´',flag:'ð¹ð¼',c:'å°ç£'},
-  {code:'KHH',city:'é«é',en:'Kaohsiung',name:'é«éåéæ©å ´',flag:'ð¹ð¼',c:'å°ç£'},
-  {code:'RMQ',city:'å°ä¸­',en:'Taichung',name:'å°ä¸­åéæ©å ´',flag:'ð¹ð¼',c:'å°ç£'},
-  {code:'NRT',city:'æ±äº¬',en:'Tokyo',name:'æç°åéæ©å ´',flag:'ð¯ðµ',c:'æ¥æ¬'},
-  {code:'HND',city:'æ±äº¬',en:'Tokyo',name:'ç¾½ç°æ©å ´',flag:'ð¯ðµ',c:'æ¥æ¬'},
-  {code:'KIX',city:'å¤§éª',en:'Osaka',name:'éè¥¿åéæ©å ´',flag:'ð¯ðµ',c:'æ¥æ¬'},
-  {code:'ITM',city:'å¤§éª',en:'Osaka',name:'ä¼ä¸¹æ©å ´',flag:'ð¯ðµ',c:'æ¥æ¬'},
-  {code:'CTS',city:'æ­å¹',en:'Sapporo',name:'æ°åå­½æ©å ´',flag:'ð¯ðµ',c:'æ¥æ¬'},
-  {code:'FUK',city:'ç¦å²¡',en:'Fukuoka',name:'ç¦å²¡æ©å ´',flag:'ð¯ðµ',c:'æ¥æ¬'},
-  {code:'NGO',city:'åå¤å±',en:'Nagoya',name:'ä¸­é¨åéæ©å ´',flag:'ð¯ðµ',c:'æ¥æ¬'},
-  {code:'OKA',city:'æ²ç¹©',en:'Okinawa',name:'é£é¸æ©å ´',flag:'ð¯ðµ',c:'æ¥æ¬'},
-  {code:'ICN',city:'é¦ç¾',en:'Seoul',name:'ä»å·åéæ©å ´',flag:'ð°ð·',c:'éå'},
-  {code:'GMP',city:'é¦ç¾',en:'Seoul',name:'éæµ¦æ©å ´',flag:'ð°ð·',c:'éå'},
-  {code:'PUS',city:'éå±±',en:'Busan',name:'éæµ·åéæ©å ´',flag:'ð°ð·',c:'éå'},
-  {code:'CJU',city:'æ¿å·',en:'Jeju',name:'æ¿å·åéæ©å ´',flag:'ð°ð·',c:'éå'},
-  {code:'HKG',city:'é¦æ¸¯',en:'Hong Kong',name:'é¦æ¸¯åéæ©å ´',flag:'ð­ð°',c:'é¦æ¸¯'},
-  {code:'MFM',city:'æ¾³é',en:'Macau',name:'æ¾³éåéæ©å ´',flag:'ð²ð´',c:'æ¾³é'},
-  {code:'PEK',city:'åäº¬',en:'Beijing',name:'é¦é½åéæ©å ´',flag:'ð¨ð³',c:'ä¸­å'},
-  {code:'PVG',city:'ä¸æµ·',en:'Shanghai',name:'æµ¦æ±åéæ©å ´',flag:'ð¨ð³',c:'ä¸­å'},
-  {code:'SHA',city:'ä¸æµ·',en:'Shanghai',name:'è¹æ©æ©å ´',flag:'ð¨ð³',c:'ä¸­å'},
-  {code:'CAN',city:'å»£å·',en:'Guangzhou',name:'ç½é²åéæ©å ´',flag:'ð¨ð³',c:'ä¸­å'},
-  {code:'BKK',city:'æ¼è°·',en:'Bangkok',name:'ç´ è¬é£æ®æ©å ´',flag:'ð¹ð­',c:'æ³°å'},
-  {code:'DMK',city:'æ¼è°·',en:'Bangkok',name:'å»æ¼æ©å ´',flag:'ð¹ð­',c:'æ³°å'},
-  {code:'HKT',city:'æ®å',en:'Phuket',name:'æ®ååéæ©å ´',flag:'ð¹ð­',c:'æ³°å'},
-  {code:'CNX',city:'æ¸é',en:'Chiang Mai',name:'æ¸éåéæ©å ´',flag:'ð¹ð­',c:'æ³°å'},
-  {code:'SGN',city:'è¡å¿æå¸',en:'Ho Chi Minh City',name:'æ°å±±ä¸åéæ©å ´',flag:'ð»ð³',c:'è¶å'},
-  {code:'HAN',city:'æ²³å§',en:'Hanoi',name:'å§æåéæ©å ´',flag:'ð»ð³',c:'è¶å'},
-  {code:'DAD',city:'å³´æ¸¯',en:'Da Nang',name:'å³´æ¸¯åéæ©å ´',flag:'ð»ð³',c:'è¶å'},
-  {code:'SIN',city:'æ°å å¡',en:'Singapore',name:'æ¨å®æ©å ´',flag:'ð¸ð¬',c:'æ°å å¡'},
-  {code:'KUL',city:'åéå¡',en:'Kuala Lumpur',name:'åéå¡åéæ©å ´',flag:'ð²ð¾',c:'é¦¬ä¾è¥¿äº'},
-  {code:'MNL',city:'é¦¬å°¼æ',en:'Manila',name:'å°¼è«¾ä¼Â·é¿åºè«¾æ©å ´',flag:'ðµð­',c:'è²å¾è³'},
-  {code:'DPS',city:'å³éå³¶',en:'Bali',name:'ä¼æè³´åéæ©å ´',flag:'ð®ð©',c:'å°å°¼'},
-  {code:'DXB',city:'ææ',en:'Dubai',name:'ææåéæ©å ´',flag:'ð¦ðª',c:'é¿è¯é'},
-  {code:'DOH',city:'å¤å',en:'Doha',name:'åé¦¬å¾·åéæ©å ´',flag:'ð¶ð¦',c:'å¡é'},
-  {code:'IST',city:'ä¼æ¯å¦å ¡',en:'Istanbul',name:'ä¼æ¯å¦å ¡æ©å ´',flag:'ð¹ð·',c:'åè³å¶'},
-  {code:'LHR',city:'å«æ¦',en:'London',name:'å¸æ¯ç¾æ©å ´',flag:'ð¬ð§',c:'è±å'},
-  {code:'CDG',city:'å·´é»',en:'Paris',name:'æ´é«æ¨æ©å ´',flag:'ð«ð·',c:'æ³å'},
-  {code:'FRA',city:'æ³è­åç¦',en:'Frankfurt',name:'æ³è­åç¦æ©å ´',flag:'ð©ðª',c:'å¾·å'},
-  {code:'AMS',city:'é¿å§æ¯ç¹ä¸¹',en:'Amsterdam',name:'å²åºæµ¦æ©å ´',flag:'ð³ð±',c:'è·è­'},
-  {code:'FCO',city:'ç¾é¦¬',en:'Rome',name:'è²çç±³å¥è«¾æ©å ´',flag:'ð®ð¹',c:'ç¾©å¤§å©'},
-  {code:'BCN',city:'å·´å¡éç´',en:'Barcelona',name:'æ®æç¹æ©å ´',flag:'ðªð¸',c:'è¥¿ç­ç'},
-  {code:'JFK',city:'ç´ç´',en:'New York',name:'çè¿ºè¿ªæ©å ´',flag:'ðºð¸',c:'ç¾å'},
-  {code:'LAX',city:'æ´æç£¯',en:'Los Angeles',name:'æ´æç£¯åéæ©å ´',flag:'ðºð¸',c:'ç¾å'},
-  {code:'SFO',city:'èéå±±',en:'San Francisco',name:'èéå±±åéæ©å ´',flag:'ðºð¸',c:'ç¾å'},
-  {code:'YVR',city:'æº«å¥è¯',en:'Vancouver',name:'æº«å¥è¯åéæ©å ´',flag:'ð¨ð¦',c:'å æ¿å¤§'},
-  {code:'SYD',city:'éªæ¢¨',en:'Sydney',name:'éæ¯ç¦å¾·Â·å²å¯æ¯æ©å ´',flag:'ð¦ðº',c:'æ¾³æ´²'},
-  {code:'MEL',city:'å¢¨ç¾æ¬',en:'Melbourne',name:'å¡æçªææ©å ´',flag:'ð¦ðº',c:'æ¾³æ´²'},
-  {code:'AKL',city:'å¥§åè­',en:'Auckland',name:'å¥§åè­æ©å ´',flag:'ð³ð¿',c:'ç´è¥¿è­'},
+  {code:'TPE',city:'台北',en:'Taipei',name:'桃園國際機場',flag:'🇹🇼',c:'台灣'},
+  {code:'TSA',city:'台北',en:'Taipei',name:'松山機場',flag:'🇹🇼',c:'台灣'},
+  {code:'KHH',city:'高雄',en:'Kaohsiung',name:'高雄國際機場',flag:'🇹🇼',c:'台灣'},
+  {code:'RMQ',city:'台中',en:'Taichung',name:'台中國際機場',flag:'🇹🇼',c:'台灣'},
+  {code:'NRT',city:'東京',en:'Tokyo',name:'成田國際機場',flag:'🇯🇵',c:'日本'},
+  {code:'HND',city:'東京',en:'Tokyo',name:'羽田機場',flag:'🇯🇵',c:'日本'},
+  {code:'KIX',city:'大阪',en:'Osaka',name:'關西國際機場',flag:'🇯🇵',c:'日本'},
+  {code:'ITM',city:'大阪',en:'Osaka',name:'伊丹機場',flag:'🇯🇵',c:'日本'},
+  {code:'CTS',city:'札幌',en:'Sapporo',name:'新千歲機場',flag:'🇯🇵',c:'日本'},
+  {code:'FUK',city:'福岡',en:'Fukuoka',name:'福岡機場',flag:'🇯🇵',c:'日本'},
+  {code:'NGO',city:'名古屋',en:'Nagoya',name:'中部國際機場',flag:'🇯🇵',c:'日本'},
+  {code:'OKA',city:'沖繩',en:'Okinawa',name:'那霸機場',flag:'🇯🇵',c:'日本'},
+  {code:'ICN',city:'首爾',en:'Seoul',name:'仁e��國際機場',flag:'🇰🇷',c:'韓國'},
+  {code:'GMP',city:'首爾',en:'Seoul',name:'金浦機場',flag:'🇰🇷',c:'韓國'},
+  {code:'PUS',city:'釜山',en:'Busan',name:'金海國際機場',flag:'🇰🇷',c:'韓國'},
+  {code:'CJU',city:'濟州',en:'Jeju',name:'濟州國際機場',flag:'��🇷',c:'韓國'},
+  {code:'HKG',city:'香港',en:'Hong Kong',name:'香港國際機場',flag:'🇭🇰',c:'香港'},
+  {code:'MFM',city:'澳門',en:'Macau',name:'澳門國際機場',flag:'🇲🇴',c:'澳門'},
+  {code:'PEK',city:'北京',en:'Beijing',name:'首都國際機場',flag:'🇨🇳',c:'中國'},
+  {code:'PVG',city:'上海',en:'Shanghai',name:'浦東國際機場',flag:'🇨🇳',c:'中國'},
+  {code:'SHA',city:'上海',en:'Shanghai',name:'虹橋機場',flag:'🇨🇳',c:'中國'},
+  {code:'CAN',city:'廣州',en:'Guangzhou',name:'白雲國際機場',flag:'🇨🇳',c:'中國'},
+  {code:'BKK',city:'曼谷',en:'Bangkok',name:'素萬那普機場',flag:'🇹🇭',c:'泰國'},
+  {code:'DMK',city:'曼谷',en:'Bangkok',name:'廊曼機場',flag:'🇹🇭',c:'泰國'},
+  {code:'HKT',city:'普吉',en:'Phuket',name:'普吉國際機場',flag:'🇹🇭',c:'泰國'},
+  {code:'CNX',city:'清邁',en:'Chiang Mai',name:'清邁國際機場',flag:'🇹🇭',c:'泰國'},
+  {code:'SGN',city:'胡志明市',en:'Ho Chi Minh City',name:'新山一國際機場',flag:'🇻🇳',c:'越南'},
+  {code:'HAN',city:'河內',en:'Hanoi',name:'內排國際機場',flag:'🇻🇳',c:'越南'},
+  {code:'DAD',city:'峴港',en:'Da Nang',name:'峴港國際機場',flag:'🇻🇳',c:'越南'},
+  {code:'SIN',city:'新加坡',en:'Singapore',name:'樟宜機場',flag:'🇸🇬',c:'新加坡'},
+  {code:'KUL',city:'吉隆坡',en:'Kuala Lumpur',name:'吉隆坡國際機場',flag:'🇲🇾',c:'馬來西亞'},
+  {code:'MNL',city:'馬尼拉',en:'Manila',name:'尼諾伊·阿基諾機場',flag:'🇵🇭',c:'菲律賓'},
+  {code:'DPS',city:'峇里島',en:'Bali',name:'伍拉賴國際機場',flag:'🇮🇩',c:'印尼'},
+  {code:'DXB',city:'杜拜',en:'Dubai',name:'杜拜國際機場',flag:'🇦🇪',c:'阿聯酋'},
+  {code:'DOH',city:'多哈',en:'Doha',name:'哈馬德國際機場',flag:'🇶🇦',c:'卡達'},
+  {code:'IST',city:'伊斯坦堡',en:'Istanbul',name:'伊斯坦堡機場',flag:'🇹🇷',c:'土耳其'},
+  {code:'LHR',city:'倫敦',en:'London',name:'希斯羅機場',flag:'🇬🇧',c:'英國'},
+  {code:'CDG',city:'巴黎',en:'Paris',name:'戴高樂機場',flag:'🇫🇷',c:'法國'},
+  {code:'FRA',city:'法蘭克福',en:'Frankfurt',name:'法蘭克福機場',flag:'🇩🇪',c:'德國'},
+  {code:'AMS',city:'阿姆斯特丹',en:'Amsterdam',name:'史基浦機場',flag:'🇳🇱',c:'荷蘭'},
+  {code:'FCO',city:'羅馬',en:'Rome',name:'菲烏米奇諾機場',flag:'🇮🇹',c:'義大利'},
+  {code:'BCN',city:'巴塞隆納',en:'Barcelona',name:'普拉特機場',flag:'🇪🇸',c:'西班牙'},
+  {code:'JFK',city:'紐約',en:'New York',name:'甘迺迪機場',flag:'🇺🇸',c:'美國'},
+  {code:'LAX',city:'洛杉磯',en:'Los Angeles',name:'洛杉磯國際機場',flag:'🇺🇸',c:'美國'},
+  {code:'SFO',city:'舊金山',en:'San Francisco',name:'舊金山國際機場',flag:'🇺🇸',c:'美國'},
+  {code:'YVR',city:'溫哥華',en:'Vancouver',name:'溫哥華國際機場',flag:'🇨🇦',c:'加拿大'},
+  {code:'SYD',city:'雪梨',en:'Sydney',name:'金斯福德·史密斯機場',flag:'🇦🇺',c:'澳洲'},
+  {code:'MEL',city:'墨爾本',en:'Melbourne',name:'塔拉瑪林機場',flag:'🇦🇺',c:'澳洲'},
+  {code:'AKL',city:'奧克蘭',en:'Auckland',name:'奧克蘭機場',flag:'🇳🇿',c:'紐西蘭'},
 ];
 
-// ââ Autocomplete ââââââââââââââââââââââ
+// ── Autocomplete ──────────────────────
 let _dd=null,_di=-1;
-const hl=(t,q)=>q?t.replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi'),'<mark class="ac-hl">$1</mark>'):t;
+const hl=(t,q)=>q?t.replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\\\\]/g,'\\$&')})`,'gi'),'<mark class="ac-hl">$1</mark>'):t;
 const findAP=q=>{if(!q)return[];const l=q.toLowerCase();return AP.filter(a=>a.code.toLowerCase().startsWith(l)||a.city.startsWith(q)||a.en.toLowerCase().startsWith(l)||a.name.startsWith(q)).slice(0,8);};
 function closeDD(){if(_dd)_dd.classList.remove('open');_dd=null;_di=-1;}
 function pickAP(code,el){const a=AP.find(x=>x.code===code);if(!a)return;el.value=`${a.code}  ${a.city}`;el.dataset.iata=a.code;el.dataset.city=a.city;el.dataset.en=a.en;closeDD();}
 function initAP(el){
   if(!el||el.dataset.ac)return;el.dataset.ac='1';
   const w=document.createElement('div');w.className='ac-wrap';el.parentNode.insertBefore(w,el);w.appendChild(el);
-  const ic=document.createElement('span');ic.className='ac-ico';ic.textContent='â';w.appendChild(ic);
+  const ic=document.createElement('span');ic.className='ac-ico';ic.textContent='✈';w.appendChild(ic);
   const dd=document.createElement('div');dd.className='ac-dd';w.appendChild(dd);
   el.addEventListener('input',()=>{
     const q=el.value.replace(/^[A-Z]{3}\s+/,'').trim()||el.value.trim();
     const res=findAP(q);_dd=dd;_di=-1;
-    if(!q||!res.length){dd.innerHTML=q?`<div class="ac-mt">æ¾ä¸å°ã${q}ã</div>`:'';dd.classList.toggle('open',!!q);return;}
-    dd.innerHTML=res.map((a,i)=>`<div class="ac-row" onmousedown="event.preventDefault()" onclick="pickAP('${a.code}',document.getElementById('${el.id}'))"><span class="ac-f">${a.flag}</span><span class="ac-cd">${hl(a.code,q)}</span><span><span class="ac-ci">${hl(a.city,q)}</span><span class="ac-nm"> Â· ${hl(a.en,q)} Â· ${hl(a.name,q)}</span></span><span class="ac-co">${a.c}</span></div>`).join('');
+    if(!q||!res.length){dd.innerHTML=q?`<div class="ac-mt">找不到「${q}」</div>`:'';dd.classList.toggle('open',!!q);return;}
+    dd.innerHTML=res.map((a,i)=>`<div class="ac-row" onmousedown="event.preventDefault()" onclick="pickAP('${a.code}',document.getElementById('${el.id}'))"><span class="ac-f">${a.flag}</span><span class="ac-cd">${hl(a.code,q)}</span><span><span class="ac-ci">${hl(a.city,q)}</span><span class="ac-nm"> · ${hl(a.en,q)} · ${hl(a.name,q)}</span></span><span class="ac-co">${a.c}</span></div>`).join('');
     dd.classList.add('open');
   });
   el.addEventListener('keydown',e=>{
@@ -460,7 +308,7 @@ function initAP(el){
 }
 function initAllAP(){document.querySelectorAll('input[data-ap]').forEach(initAP);}
 
-// ââ Trip state ââââââââââââââââââââââââ
+// ── Trip state ────────────────────────
 let legs=[],lc=0;
 const gv=id=>document.getElementById(id)?.value?.trim()||'';
 const getIATA=id=>{const e=document.getElementById(id);return e?.dataset?.iata||e?.value?.trim()||'';};
@@ -486,21 +334,21 @@ function renderLegs(){
 }
 function singleHtml(t){
   const r=t==='roundtrip';
-  return`<div class="card"><div class="card-p"><div class="seclabel">è¡ç¨è³è¨</div><div class="g2">
-    <div><div class="fl">åºç¼å° ð«</div>${apHtml('from_s','è¼¸å¥åå¸ææ©å ´ä»£ç¢¼ï¼T â TPEâ¦ï¼')}</div>
-    <div><div class="fl">ç®çå° ð¬</div>${apHtml('to_s','è¼¸å¥åå¸ææ©å ´ä»£ç¢¼â¦')}</div>
-    <div><div class="fl">å»ç¨æ¥æ</div>${dtHtml('dep_s')}</div>
-    ${r?`<div><div class="fl">åç¨æ¥æ</div>${dtHtml('ret_s')}</div>`:''}
+  return`<div class="card"><div class="card-p"><div class="seclabel">行程資訊</div><div class="g2">
+    <div><div class="fl">出發地 🛫</div>${apHtml('from_s','輸入城市或機場代碼（T → TPE…）')}</div>
+    <div><div class="fl">目的地 🛬</div>${apHtml('to_s','輸入城市或機場代碼…')}</div>
+    <div><div class="fl">去程日期</div>${dtHtml('dep_s')}</div>
+    ${r?`<div><div class="fl">回程日期</div>${dtHtml('ret_s')}</div>`:''}
   </div></div></div>`;
 }
 function mkLeg(id,n,canRm){
   const d=document.createElement('div');d.id=`lc_${id}`;d.className='leg-card';
-  d.innerHTML=`<div class="leg-hdr"><div class="leg-b"><div class="leg-n">${n}</div>ç¬¬ ${n} æ®µ</div>${canRm?`<button class="rm-b" onclick="removeLeg(${id})">â ç§»é¤</button>`:''}</div>
+  d.innerHTML=`<div class="leg-hdr"><div class="leg-b"><div class="leg-n">${n}</div>第 ${n} 段</div>${canRm?`<button class="rm-b" onclick="removeLeg(${id})">✕ 移除</button>`:''}</div>
     <div class="g2">
-      <div><div class="fl">åºç¼å° ð«</div>${apHtml(`from_${id}`,'åå¸ / æ©å ´ä»£ç¢¼')}</div>
-      <div><div class="fl">ç®çå° ð¬</div>${apHtml(`to_${id}`,'åå¸ / æ©å ´ä»£ç¢¼')}</div>
-      <div><div class="fl">å»ç¨æ¥æ</div>${dtHtml(`dep_${id}`)}</div>
-      <div><div class="fl">åç¨ / é¢éæ¥æ</div>${dtHtml(`ret_${id}`)}</div>
+      <div><div class="fl">出發地 🛫</div>${apHtml(`from_${id}`,'城市 / 機場代碼')}</div>
+      <div><div class="fl">目的地 🛬</div>${apHtml(`to_${id}`,'城市 / 機場代碼')}</div>
+      <div><div class="fl">去程日期</div>${dtHtml(`dep_${id}`)}</div>
+      <div><div class="fl">回程 / 離開日期</div>${dtHtml(`ret_${id}`)}</div>
     </div>`;return d;
 }
 
@@ -510,7 +358,7 @@ function getLegData(){
   return legs.map(l=>({from:getIATA(`from_${l.id}`),to:getIATA(`to_${l.id}`),toEn:getCityEn(`to_${l.id}`),dep:gv(`dep_${l.id}`),ret:gv(`ret_${l.id}`),adults,currency}));
 }
 
-// ââ API calls ââââââââââââââââââââââââ
+// ── API calls ────────────────────────
 const isDeployed=()=>window.location.protocol!=='file:';
 
 async function apiFetch(path){
@@ -519,7 +367,7 @@ async function apiFetch(path){
   return r.json();
 }
 
-// ââ Render helpers ââââââââââââââââââââ
+// ── Render helpers ────────────────────
 const loading=t=>`<div class="spinner"><div class="spin"></div><div class="spin-t">${t}</div></div>`;
 const emptyBox=(ic,t,s)=>`<div class="sbox"><div class="s-ic">${ic}</div><div class="s-ti">${t}</div><div class="s-su">${s}</div></div>`;
 
@@ -528,12 +376,12 @@ function deployNotice(leg){
   const bUrl=`https://www.booking.com/search.html?ss=${encodeURIComponent(leg.toEn)}&checkin=${leg.dep}&checkout=${leg.ret||''}&group_adults=${leg.adults}&lang=zh-tw`;
   const mUrl=`https://www.google.com/maps/search/hotels+in+${encodeURIComponent(leg.toEn||leg.to)}`;
   return`<div class="deploy-notice">
-    <div class="dn-title">ð é¨ç½²å° Vercel å¾ï¼çµæå°é¡¯ç¤ºå¨æ­¤é é¢</div>
-    <div class="dn-sub">ç®åçºæ¬æ©é è¦½æ¨¡å¼ï¼æå°çµæè«é»ä¸æ¹é£çµéåãé¨ç½²å®æå¾ï¼èªç­ç¥¨å¹åé£¯åºæ¿å¹æç´æ¥é¡¯ç¤ºå¨éè£¡ã</div>
+    <div class="dn-title">🚀 部署到 Vercel 後，結果將顯示在此頁面</div>
+    <div class="dn-sub">目前為本機預覽模式，搜尋結果請點下方連結開啟。部署完成後，航班票價和飯店房價會直接顯示在這裡。</div>
     <div class="dn-links">
-      <a class="dn-link" href="${fUrl}" target="_blank">ð« Google Flights</a>
-      <a class="dn-link" href="${bUrl}" target="_blank">ð¨ Booking.com</a>
-      <a class="dn-link" href="${mUrl}" target="_blank">ðº Google Maps</a>
+      <a class="dn-link" href="${fUrl}" target="_blank">🛫 Google Flights</a>
+      <a class="dn-link" href="${bUrl}" target="_blank">🏨 Booking.com</a>
+      <a class="dn-link" href="${mUrl}" target="_blank">🗺 Google Maps</a>
     </div>
   </div>`;
 }
@@ -541,11 +389,11 @@ function deployNotice(leg){
 function renderFlights(data, leg){
   const el=document.getElementById('tc-flights');
   if(!data?.best_flights?.length && !data?.other_flights?.length){
-    el.innerHTML=emptyBox('â','æ¥ç¡èªç­çµæ','è«ç¢ºèªåå¸ä»£ç¢¼æ¯å¦æ­£ç¢ºï¼æè©¦è©¦å¶ä»æ¥æ');return;
+    el.innerHTML=emptyBox('✈','查無航班結果','請確認城市代碼是否正確，或試試其他日期');return;
   }
   const flights=[...(data.best_flights||[]),...(data.other_flights||[])].slice(0,8);
   const fUrl=`https://www.google.com/travel/flights?q=flights+from+${leg.from}+to+${leg.to}+on+${leg.dep}&adults=${leg.adults}`;
-  el.innerHTML=`<div class="results-label">æ¾å° ${flights.length} åèªç­é¸é  Â· è³æä¾æºï¼Google Flights</div>`+
+  el.innerHTML=`<div class="results-label">找到 ${flights.length} 個航班選項 · 資料來源：Google Flights</div>`+
     flights.map(f=>{
       const segs=f.flights||[];
       const first=segs[0]||{};const last=segs[segs.length-1]||{};
@@ -563,20 +411,20 @@ function renderFlights(data, leg){
             <div class="fl-line">
               <span class="fl-dur">${dur}</span>
               <div class="fl-div"></div>
-              <span class="fl-stp">${stops===0?'ç´é£':stops+'æ¬¡è½æ©'}</span>
+              <span class="fl-stp">${stops===0?'直飛':stops+'次轉機'}</span>
             </div>
             <span class="ib">${last.arrival_airport?.id||leg.to}</span>
           </div>
           <div class="fp">
             <div class="p-big">${leg.currency} ${price}</div>
-            <div class="p-sub">æ¯äººç¸½å¹</div>
+            <div class="p-sub">每人總價</div>
           </div>
         </div>
         <div class="fmeta">
           ${logo?`<img class="airline-logo" src="${logo}" alt="${airline}"/>`:''}
           <span class="al-tag">${airline} ${first.flight_number||''}</span>
-          <span class="t-span">${depTime} â ${arrTime}</span>
-          <a class="bk-lnk" href="${fUrl}" target="_blank">å¨ Flights è¨è³¼ â</a>
+          <span class="t-span">${depTime} → ${arrTime}</span>
+          <a class="bk-lnk" href="${fUrl}" target="_blank">在 Flights 訂購 →</a>
         </div>
       </div>`;
     }).join('');
@@ -585,28 +433,28 @@ function renderFlights(data, leg){
 function renderHotels(data, leg){
   const el=document.getElementById('tc-hotels');
   if(!data?.properties?.length){
-    el.innerHTML=emptyBox('ð¨','æ¥ç¡é£¯åºçµæ','è«ç¢ºèªç®çå°åç¨±æ¯å¦æ­£ç¢º');return;
+    el.innerHTML=emptyBox('🏨','查無飯店結果','請確認目的地名稱是否正確');return;
   }
   const hotels=data.properties.slice(0,8);
   const bUrl=`https://www.booking.com/search.html?ss=${encodeURIComponent(leg.toEn)}&checkin=${leg.dep}&checkout=${leg.ret||''}&group_adults=${leg.adults}&lang=zh-tw`;
-  el.innerHTML=`<div class="results-label">æ¾å° ${hotels.length} éé£¯åº Â· è³æä¾æºï¼Google Hotels</div>`+
+  el.innerHTML=`<div class="results-label">找到 ${hotels.length} 間飯店 · 資料來源：Google Hotels</div>`+
     hotels.map(h=>{
       const price=h.rate_per_night?.extracted_lowest;
       const total=h.total_rate?.extracted_lowest;
       const rating=h.overall_rating||'';
       const reviews=h.reviews?.toLocaleString()||'';
-      const stars='â'.repeat(Math.round(rating||3)).padEnd(5,'â');
+      const stars='★'.repeat(Math.round(rating||3)).padEnd(5,'☆');
       const link=h.link||bUrl;
       return`<div class="hc">
         <div class="hc-name">${h.name}</div>
         <div class="hc-class">${h.hotel_class||''}</div>
-        ${rating?`<div class="hc-rating">â­ ${rating} <span style="color:var(--muted)">(${reviews} åè©è«)</span></div>`:''}
+        ${rating?`<div class="hc-rating">⭐ ${rating} <span style="color:var(--muted)">(${reviews} 則評論)</span></div>`:''}
         <div class="hc-foot">
           <div>
-            ${price?`<div class="hc-price">${leg.currency} ${price.toLocaleString()}<span style="font-size:.7rem;font-weight:400;-webkit-text-fill-color:var(--muted);background:none">/æ</span></div>`:''}
-            ${total?`<div class="hc-per">ç¸½è¨ ${leg.currency} ${total.toLocaleString()}</div>`:''}
+            ${price?`<div class="hc-price">${leg.currency} ${price.toLocaleString()}<span style="font-size:.7rem;font-weight:400;-webkit-text-fill-color:var(--muted);background:none">/晚</span></div>`:''}
+            ${total?`<div class="hc-per">總計 ${leg.currency} ${total.toLocaleString()}</div>`:''}
           </div>
-          <a class="bk-lnk" style="margin-left:auto;border-color:rgba(168,85,247,.3);color:var(--a2)" href="${link}" target="_blank">æ¥ç â</a>
+          <a class="bk-lnk" style="margin-left:auto;border-color:rgba(168,85,247,.3);color:var(--a2)" href="${link}" target="_blank">查看 →</a>
         </div>
       </div>`;
     }).join('');
@@ -618,7 +466,7 @@ function renderMap(toEn, to){
   el.innerHTML=`<div class="map-wrap"><iframe loading="lazy" src="https://www.google.com/maps?q=${q}&output=embed&hl=zh-TW" allowfullscreen></iframe></div>`;
 }
 
-// ââ Tabs ââââââââââââââââââââââââââââââ
+// ── Tabs ──────────────────────────────
 function switchTab(name,btn){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
   document.querySelectorAll('.tc').forEach(t=>t.classList.remove('vis'));
@@ -626,22 +474,22 @@ function switchTab(name,btn){
   document.getElementById('tc-'+name).classList.add('vis');
 }
 
-// ââ Main search âââââââââââââââââââââââ
+// ── Main search ───────────────────────
 async function runSearch(){
   const data=getLegData();
   const leg=data[0];
-  if(!leg.from&&!leg.to){alert('è«åè¼¸å¥åºç¼å°åç®çå°');return;}
+  if(!leg.from&&!leg.to){alert('請先輸入出發地和目的地');return;}
 
   const btn=document.getElementById('searchBtn');
-  btn.disabled=true;btn.textContent='â³  æå°ä¸­â¦';
+  btn.disabled=true;btn.textContent='⏳  搜尋中…';
 
   const sec=document.getElementById('resultsSection');
   sec.style.display='block';
   setTimeout(()=>sec.scrollIntoView({behavior:'smooth',block:'start'}),100);
 
-  document.getElementById('tc-flights').innerHTML=loading('æå°èªç­ä¸­â¦');
-  document.getElementById('tc-hotels').innerHTML=loading('æå°é£¯åºä¸­â¦');
-  document.getElementById('tc-map').innerHTML=loading('è¼å¥å°åâ¦');
+  document.getElementById('tc-flights').innerHTML=loading('搜尋航班中…');
+  document.getElementById('tc-hotels').innerHTML=loading('搜尋飯店中…');
+  document.getElementById('tc-map').innerHTML=loading('載入地圖…');
 
   // Reset to flights tab
   document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('on',i===0));
@@ -654,7 +502,7 @@ async function runSearch(){
     // Local preview mode
     document.getElementById('tc-flights').innerHTML=deployNotice(leg);
     document.getElementById('tc-hotels').innerHTML=deployNotice(leg);
-    btn.disabled=false;btn.textContent='ð  æå°èªç­ ï¼ é£¯åº ï¼ å°å';
+    btn.disabled=false;btn.textContent='🔍  搜尋航班 ＋ 飯店 ＋ 地圖';
     return;
   }
 
@@ -668,15 +516,15 @@ async function runSearch(){
   ]);
 
   if(flightData.status==='fulfilled') renderFlights(flightData.value, leg);
-  else document.getElementById('tc-flights').innerHTML=emptyBox('â ï¸','èªç­æå°å¤±æ',flightData.reason?.message||'è«ç¨å¾åè©¦');
+  else document.getElementById('tc-flights').innerHTML=emptyBox('⚠️','航班搜尋失敗',flightData.reason?.message||'請稍後再試');
 
   if(hotelData.status==='fulfilled') renderHotels(hotelData.value, leg);
-  else document.getElementById('tc-hotels').innerHTML=emptyBox('â ï¸','é£¯åºæå°å¤±æ',hotelData.reason?.message||'è«ç¨å¾åè©¦');
+  else document.getElementById('tc-hotels').innerHTML=emptyBox('⚠️','飯店搜尋失敗',hotelData.reason?.message||'請稍後再試');
 
-  btn.disabled=false;btn.textContent='ð  æå°èªç­ ï¼ é£¯åº ï¼ å°å';
+  btn.disabled=false;btn.textContent='🔍  搜尋航班 ＋ 飯店 ＋ 地圖';
 }
 
-// ââ Init ââââââââââââââââââââââââââââââ
+// ── Init ──────────────────────────────
 document.addEventListener('DOMContentLoaded',()=>{
   legs=[{id:++lc}];renderLegs();
   ['adults','tripType','currency'].forEach(id=>document.getElementById(id)?.addEventListener('change',renderLegs));
