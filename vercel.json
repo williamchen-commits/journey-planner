@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "rewrites": [
+    { "source": "/api/flights", "destination": "/api/flights" },
+    { "source": "/api/hotels",  "destination": "/api/hotels"  },
+    { "source": "/(.*)",        "destination": "/index.html"  }
+  ]
+}
