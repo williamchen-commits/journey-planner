@@ -1,56 +1,98 @@
-// Vercel Serverless Function — Google Flights via SerpAPI
-// 部署到 Vercel 後，此函式會作為 /api/flights 路由
+// Vercel Serverless Function — Google Flights via RapidAPI Sky Scrapper
+
+const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY;
+const RAPIDAPI_HOST = 'sky-scrapper.p.rapidapi.com';
+
+async function searchAirport(query) {
+  const url = `https://${RAPIDAPI_HOST}/api/v1/flights/searchAirport?query=${encodeURIComponent(query)}&locale=en-US`;
+  const res = await fetch(url, {
+    headers: { 'x-rapidapi-key': RAPIDAPI_KEY, 'x-rapidapi-host': RAPIDAPI_HOST },
+  });
+  const data = await res.json();
+  const first = data?.data?.[0];
+  if (!first) throw new Error(`找不到機場: ${query}`);
+  return { skyId: first.skyId, entityId: first.entityId };
+}
+
+function normalizeFlights(data) {
+  const itineraries = data?.data?.itineraries || [];
+  const normalized = itineraries.slice(0, 8).map(itin => {
+    const leg = itin.legs?.[0];
+    if (!leg) return null;
+    const carrier = leg.carriers?.marketing?.[0] || {};
+    return {
+      flights: (leg.segments || []).map(seg => ({
+        departure_airport: {
+          id: seg.origin?.displayCode || seg.origin?.id || '',
+          time: (seg.departure || '').replace('T', ' ').slice(0, 16),
+        },
+        arrival_airport: {
+          id: seg.destination?.displayCode || seg.destination?.id || '',
+          time: (seg.arrival || '').replace('T', ' ').slice(0, 16),
+        },
+        airline: seg.marketingCarrier?.name || carrier.name || '',
+        airline_logo: carrier.logoUrl || '',
+        flight_number: (seg.marketingCarrier?.alternateId || '') + (seg.flightNumber || ''),
+      })),
+      total_duration: leg.durationInMinutes || 0,
+      price: itin.price?.raw || 0,
+    };
+  }).filter(Boolean);
+
+  return {
+    best_flights: normalized.slice(0, 3),
+    other_flights: normalized.slice(3),
+  };
+}
 
 export default async function handler(req, res) {
-  // Allow cross-origin requests from your frontend
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') { res.status(200).end(); return; }
 
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
-  }
-
-  const apiKey = process.env.SERP_API_KEY;
-  if (!apiKey) {
-    return res.status(500).json({ error: 'SERP_API_KEY environment variable is not set' });
+  if (!RAPIDAPI_KEY) {
+    return res.status(500).json({ error: 'RAPIDAPI_KEY environment variable is not set' });
   }
 
   const { from, to, dep, ret, adults = '1', currency = 'TWD' } = req.query;
-
   if (!from || !to || !dep) {
     return res.status(400).json({ error: 'Missing required parameters: from, to, dep' });
   }
 
-  const params = new URLSearchParams({
-    engine: 'google_flights',
-    departure_id: from,
-    arrival_id: to,
-    outbound_date: dep,
-    adults,
-    currency,
-    hl: 'zh-tw',
-    gl: 'tw',
-    api_key: apiKey,
-  });
-
-  // Round trip vs one-way
-  if (ret) {
-    params.set('return_date', ret);
-    params.set('type', '1'); // 1 = round trip
-  } else {
-    params.set('type', '2'); // 2 = one way
-  }
-
   try {
-    const response = await fetch(`https://serpapi.com/search?${params.toString()}`);
-    if (!response.ok) {
-      const errText = await response.text();
-      return res.status(response.status).json({ error: errText });
+    // Step 1: Look up airport entity IDs in parallel (counts as 2 API calls)
+    const [originAirport, destAirport] = await Promise.all([
+      searchAirport(from),
+      searchAirport(to),
+    ]);
+
+    // Step 2: Search flights (1 API call)
+    const params = new URLSearchParams({
+      originSkyId: originAirport.skyId,
+      originEntityId: originAirport.entityId,
+      destinationSkyId: destAirport.skyId,
+      destinationEntityId: destAirport.entityId,
+      date: dep,
+      cabinClass: 'economy',
+      adults,
+      currency,
+      market: 'en-US',
+      countryCode: 'TW',
+      sortBy: 'best',
+    });
+    if (ret) params.set('returnDate', ret);
+
+    const flightRes = await fetch(
+      `https://${RAPIDAPI_HOST}/api/v1/flights/searchFlights?${params}`,
+      { headers: { 'x-rapidapi-key': RAPIDAPI_KEY, 'x-rapidapi-host': RAPIDAPI_HOST } }
+    );
+    if (!flightRes.ok) {
+      const errText = await flightRes.text();
+      return res.status(flightRes.status).json({ error: errText });
     }
-    const data = await response.json();
-    res.status(200).json(data);
+    const flightData = await flightRes.json();
+    res.status(200).json(normalizeFlights(flightData));
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
