@@ -8,12 +8,12 @@ async function searchAirport(query) {
   const res = await fetch(url, {
     headers: { 'x-rapidapi-key': RAPIDAPI_KEY, 'x-rapidapi-host': RAPIDAPI_HOST },
   });
-  const raw = await res.text();
-  let data;
-  try { data = JSON.parse(raw); } catch(e) { throw new Error(`Airport parse error: ${raw.slice(0,200)}`); }
-  const first = data?.data?.[0];
-  if (!first) throw new Error(`找不到機場: ${query} | status=${res.status} | raw=${raw.slice(0,300)}`);
-  return { skyId: first.skyId, entityId: first.entityId };
+  const data = await res.json();
+  const results = data?.data || [];
+  // Prefer AIRPORT entity over CITY entity to avoid searchFlights returning "failure"
+  const airport = results.find(x => x.navigation?.entityType === 'AIRPORT') || results[0];
+  if (!airport) throw new Error(`找不到機場: ${query}`);
+  return { skyId: airport.skyId, entityId: airport.entityId };
 }
 
 function normalizeFlights(data) {
@@ -63,11 +63,13 @@ export default async function handler(req, res) {
   }
 
   try {
+    // Step 1: Look up airport entity IDs in parallel (2 API calls)
     const [originAirport, destAirport] = await Promise.all([
       searchAirport(from),
       searchAirport(to),
     ]);
 
+    // Step 2: Search flights (1 API call)
     const params = new URLSearchParams({
       originSkyId: originAirport.skyId,
       originEntityId: originAirport.entityId,
