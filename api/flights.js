@@ -8,9 +8,11 @@ async function searchAirport(query) {
   const res = await fetch(url, {
     headers: { 'x-rapidapi-key': RAPIDAPI_KEY, 'x-rapidapi-host': RAPIDAPI_HOST },
   });
-  const data = await res.json();
+  const raw = await res.text();
+  let data;
+  try { data = JSON.parse(raw); } catch(e) { throw new Error(`Airport parse error: ${raw.slice(0,200)}`); }
   const first = data?.data?.[0];
-  if (!first) throw new Error(`找不到機場: ${query}`);
+  if (!first) throw new Error(`找不到機場: ${query} | status=${res.status} | raw=${raw.slice(0,300)}`);
   return { skyId: first.skyId, entityId: first.entityId };
 }
 
@@ -61,13 +63,11 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Step 1: Look up airport entity IDs in parallel (counts as 2 API calls)
     const [originAirport, destAirport] = await Promise.all([
       searchAirport(from),
       searchAirport(to),
     ]);
 
-    // Step 2: Search flights (1 API call)
     const params = new URLSearchParams({
       originSkyId: originAirport.skyId,
       originEntityId: originAirport.entityId,
